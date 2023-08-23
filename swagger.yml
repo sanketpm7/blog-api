@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: Blogpost APIs
+  description: |-
+    This is a sample Blogpost API Server based on the OpenAPI 3.0 specification.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: smuttin38@gmail.com
+  version: 1.0.11
+servers:
+  - url: https://asia-south1-bamboo-machine-396805.cloudfunctions.net/blog-api/api
+tags:
+  - name: blog
+    description: Operations on blogs
+paths:
+  /blog:
+    get:
+      tags:
+        - blog
+      summary: Returns all blogsposts
+      description: Returns all blogsposts
+      operationId: getAllBlogPost
+      responses:
+        '200':
+          description: Blog post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - blog
+      summary: Create a new blog post
+      description: Creates a new blog post
+      operationId: createBlogPost
+      requestBody:
+        description: New blog post data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Blog'
+      responses:
+        '201':
+          description: Blog post created successfully
+        '500':
+          description: Internal Server Error
+  /blog/{blogId}: 
+    get:
+      tags:
+        - blog
+      summary: Find blogpost by ID
+      description: Returns all blogspost
+      operationId: getBlogPostById
+      parameters:
+        - name: blogId
+          in: path
+          description: ID of blog post
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '400':
+          description: Invalid blogId
+        '404':
+          description: No record with given blogId
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - blog
+      summary: Update blogPost
+      description: Update an existing blog post
+      operationId: updateBlogPost
+      parameters:
+        - name: blogId
+          in: path
+          description: ID of blog post
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: New blog post data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Blog'
+      responses:
+        '201':
+          description: Blog post created successfully
+        '400':
+          description: Invalid blogId
+        '404':
+          description: No record with given blogId
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - blog
+      summary: Delete blogPost
+      description: Delete an existing blog post
+      operationId: deleteBlogPost
+      parameters:
+        - name: blogId
+          in: path
+          description: ID of blog post
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+        '400':
+          description: Invalid blogId
+        '404':
+          description: No record with given blogId
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    Blog:
+      type: object
+      required:
+        - title
+        - author
+        - content
+      properties:
+        title:
+          type: string
+          example: blog-title-1
+        author:
+          type: string
+          example: John Doe
+        uploadDate:
+          type: string
+          format: date-time
+          example: '2023-08-22T21:20:30.419Z'
+        lastUpdated:
+          type: string
+          format: date-time
+          example: '2023-08-23T19:06:25.180Z'
+        content:
+          type: string
+          example: 'lorem ipsum'

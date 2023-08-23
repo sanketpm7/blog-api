@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Deploy Cloud Function",
+            "type": "cloudcode.cloudfunctions",
+            "request": "launch",
+            "functionName": "blog-api",
+            "gen": "GEN_2",
+            "revision": "blog-api-00001-mox",
+            "entryPoint": "blogApi",
+            "testInput": "index.js",
+            "region": "asia-south1",
+            "runtime": "nodejs20"
+        }
+    ]
+}
